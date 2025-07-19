@@ -1,32 +1,29 @@
-# 🛠️ Altech - Java Backend Technical Assessment
+# Altech - Java Backend Technical Assessment
 
 A Spring Boot application for an electronics store checkout system with product management, discount deals, and shopping basket functionality.
 
 ## 📋 Requirements Implementation
 
-### ✅ Admin Operations
+### Admin Operations
 - Create and manage products
 - Add discount deals with expiration dates
 - Remove products (soft delete)
 - View all products and deals with pagination
 - Update product stock quantities
 
-### ✅ Customer Operations
+### Customer Operations
 - Browse products with filtering and pagination
 - Add/remove items from shopping basket
 - View active deals for products
 - Calculate receipts with applied discounts
 - Filter products by category, price range, and availability
 
-### ✅ Transactional Integrity
-- All operations are transactional to prevent partial updates
-- Stock management with automatic decrement
-- Deal expiration handling
-
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Java21aven3.6 Docker and Docker Compose (for containerized setup)
+- Java 21
+- Maven 3.6+
+- Docker and Docker Compose (for containerized setup)
 
 ### Option 1: Docker (Recommended)
 ```bash
@@ -34,7 +31,9 @@ A Spring Boot application for an electronics store checkout system with product 
 docker-compose up --build
 ```
 
-The application will be available at: http://localhost:880## Option 2: Local Development
+The application will be available at: http://localhost:8080/altech-interview
+
+### Option 2: Local Development
 ```bash
 # Start PostgreSQL database (if not using Docker)
 # Create database: interview_db
@@ -43,7 +42,7 @@ The application will be available at: http://localhost:880## Option 2: Local Dev
 ./mvnw spring-boot:run
 ```
 
-## 🧪 Testing
+## Testing
 
 ### Automated Tests
 The application includes comprehensive automated tests that verify all requirements:
@@ -61,33 +60,42 @@ The application includes comprehensive automated tests that verify all requireme
 
 **Note**: If any requirement is not satisfied, the corresponding test will fail.
 
-## 📡 API Endpoints
+## API Endpoints
 
 ### Admin Endpoints (`/api/admin`)
 - `POST /api/admin/products` - Create product
 - `GET /api/admin/products` - Get all products (paginated)
-- `DELETE /api/admin/products/{id}` - Delete product
+- `GET /api/admin/products/{id}` - Get product by ID
+- `DELETE /api/admin/products/{id}` - Delete product (soft delete)
+- `PUT /api/admin/products/{id}/stock` - Update product stock quantity
 - `POST /api/admin/deals` - Create deal
 - `GET /api/admin/deals` - Get all deals (paginated)
+- `GET /api/admin/deals/{id}` - Get deal by ID
+- `DELETE /api/admin/deals/{id}` - Delete deal (soft delete)
 - `POST /api/admin/deals/deactivate-expired` - Deactivate expired deals
 
 ### Customer Endpoints (`/api/customer`)
 - `GET /api/customer/products` - Get all products (paginated)
-- `POST /api/customer/products/filter` - Filter products
+- `GET /api/customer/products/{id}` - Get product by ID
+- `GET /api/customer/products/category/{category}` - Get products by category (paginated)
+- `POST /api/customer/products/filter` - Filter products by category, price range, and availability
+- `GET /api/customer/products/{productId}/deals` - Get active deals for a product
 - `POST /api/customer/basket/items` - Add item to basket
 - `DELETE /api/customer/basket/items/{productId}` - Remove item from basket
-- `GET /api/customer/basket/receipt` - Calculate receipt
+- `GET /api/customer/basket` - Get basket contents
+- `GET /api/customer/basket/receipt` - Calculate receipt with applied discounts
+- `DELETE /api/customer/basket` - Clear entire basket
 
-## 🗄️ Database
+## Database
 
 The application uses PostgreSQL with Flyway migrations. Database schema includes:
 - Products table with stock management
 - Deals table with expiration dates
 - Baskets and basket items for shopping cart functionality
 
-## 📦 Technology Stack
+## Technology Stack
 
-- Spring Boot 30.50.3
+- Spring Boot 3.5.3
 - Spring Data JPA
 - PostgreSQL
 - Flyway Migration
@@ -96,5 +104,5 @@ The application uses PostgreSQL with Flyway migrations. Database schema includes
 
 ## 📄 Documentation
 
-- API Documentation: http://localhost:8080/swagger-ui.html (when running)
+- API Documentation: http://localhost:8080/altech-interview/swagger-ui.html (when running)
 - This document is included in the repository as required 
